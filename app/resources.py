@@ -2,7 +2,9 @@ from flask_restx import Resource, Namespace
 
 from .extensions import db
 from .models import Course, Student
-from .api_models import course_model, student_model, course_input_model, student_input_model
+from .api_models import (
+    course_model, student_model, course_input_model, student_input_model
+)
 
 ns = Namespace('api', description='API')
 
@@ -39,7 +41,7 @@ class CourseAPI(Resource):
 
 
 @ns.route('/students')
-class StudentAPI(Resource):
+class StudentListAPI(Resource):
     @ns.marshal_list_with(student_model)
     def get(self):
         return Student.query.all()
@@ -64,3 +66,28 @@ class StudentAPI(Resource):
         db.session.add(new_student)
         db.session.commit()
         return new_student, 201
+
+
+@ns.route('/students/<int:pk>')
+class StudentAPI(Resource):
+    @ns.marshal_with(student_model)
+    def get(self, pk):
+        student = Student.query.get_or_404(pk)
+        return student
+
+    @ns.expect(course_input_model)
+    @ns.marshal_with(student_model)
+    def put(self, pk):
+        student = Student.query.get(pk)
+        name = ns.payload['name']
+        # validate name and sanitize it
+        valid_name = name
+        student.name = valid_name
+        db.session.commit()
+        return student
+
+    def delete(self, pk):
+        student = Student.query.get(pk)
+        db.session.delete(student)
+        db.session.commit()
+        return {}, 204
