@@ -8,6 +8,7 @@ from .api_models import (
 
 ns = Namespace('api', description='API')
 
+
 @ns.route('/hello')
 class Hello(Resource):
     def get(self):
@@ -22,6 +23,7 @@ class CourseListAPI(Resource):
 
     @ns.expect(course_input_model)
     @ns.marshal_with(course_model)
+    @ns.doc(responses={201: 'Course created'})
     def post(self):
         name = ns.payload['name']
         # validate name and sanitize it
@@ -33,8 +35,10 @@ class CourseListAPI(Resource):
 
 
 @ns.route('/courses/<int:pk>')
+@ns.doc(params={'pk': 'The course identifier'})
 class CourseAPI(Resource):
     @ns.marshal_with(course_model)
+    @ns.doc(responses={404: 'Course not found', 200: 'Course found'})
     def get(self, pk):
         course = Course.query.get_or_404(pk)
         return course
@@ -48,6 +52,7 @@ class StudentListAPI(Resource):
 
     @ns.expect(student_input_model)
     @ns.marshal_with(student_model)
+    @ns.doc(responses={201: 'Student created'})
     def post(self):
         student_name = ns.payload['name']
         course_name = ns.payload['course_name']
@@ -69,16 +74,19 @@ class StudentListAPI(Resource):
 
 
 @ns.route('/students/<int:pk>')
+@ns.doc(params={'pk': 'The student identifier'})
 class StudentAPI(Resource):
     @ns.marshal_with(student_model)
+    @ns.doc(responses={404: 'Student not found', 200: 'Student found'})
     def get(self, pk):
         student = Student.query.get_or_404(pk)
         return student
 
     @ns.expect(course_input_model)
     @ns.marshal_with(student_model)
+    @ns.doc(responses={200: 'Student updated', 404: 'Student not found'})
     def put(self, pk):
-        student = Student.query.get(pk)
+        student = Student.query.get_or_404(pk)
         name = ns.payload['name']
         # validate name and sanitize it
         valid_name = name
@@ -86,8 +94,9 @@ class StudentAPI(Resource):
         db.session.commit()
         return student
 
+    @ns.doc(responses={204: 'No Content', 404: 'Student not found'})
     def delete(self, pk):
-        student = Student.query.get(pk)
+        student = Student.query.get_or_404(pk)
         db.session.delete(student)
         db.session.commit()
         return {}, 204
