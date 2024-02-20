@@ -50,13 +50,17 @@ class StudentListAPI(Resource):
     def get(self):
         return Student.query.all()
 
-    @ns.expect(student_input_model)
+    @ns.expect(student_input_model, validate=True)
     @ns.marshal_with(students_model)
     @ns.doc(responses={201: 'Student created'})
     def post(self):
         student_name = ns.payload['name']
         course_name = ns.payload['course_name']
-        # validate name and sanitize it
+        email = ns.payload['email']
+        age = ns.payload['age']
+        enrollment_date = ns.payload['enrollment_date']
+        active = ns.payload['active']
+        # TODO: sanitize data
         valid_student_name = student_name
         valid_course_name = course_name
 
@@ -67,7 +71,8 @@ class StudentListAPI(Resource):
             db.session.commit()
             course = Course.query.filter_by(name=valid_course_name).first()
 
-        new_student = Student(name=valid_student_name, course=course)
+        new_student = Student(name=valid_student_name, course=course, email=email, age=age,
+                              enrollment_date=enrollment_date, active=active)
         db.session.add(new_student)
         db.session.commit()
         return new_student, 201
@@ -82,13 +87,14 @@ class StudentAPI(Resource):
         student = Student.query.get_or_404(pk)
         return student
 
-    @ns.expect(course_input_model)
+    @ns.expect(course_input_model, validate=True)
     @ns.marshal_with(students_model)
     @ns.doc(responses={200: 'Student updated', 404: 'Student not found'})
     def put(self, pk):
+        # TODO: Update method to support other fields not included yet
         student = Student.query.get_or_404(pk)
         name = ns.payload['name']
-        # validate name and sanitize it
+        # TODO: sanitize data
         valid_name = name
         student.name = valid_name
         db.session.commit()

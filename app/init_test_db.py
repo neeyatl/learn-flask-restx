@@ -1,3 +1,4 @@
+from datetime import datetime
 from .extensions import db
 from .utils import get_fixture_json, get_random_item, randint
 
@@ -14,7 +15,14 @@ def init_courses_db():
         db.session.add(course)
 
         db.session.add_all([
-            Student(course=course, name=student['name'])
+            Student(
+                course=course,
+                enrollment_date=datetime.strptime(
+                    student.pop('enrollment_date'),
+                    "%Y-%m-%d"
+                ).date(),
+                **student
+            )
             for student in students
         ])
 

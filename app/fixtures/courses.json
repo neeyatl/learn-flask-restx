@@ -3,10 +3,25 @@
         "name": "Economics",
         "students": [
             {
-                "name": "Prateek"
+                "name": "Prateek",
+                "email": "prateek@cs.rit.edu",
+                "age": 18,
+                "enrollment_date": "2020-01-01",
+                "active": true
             },
             {
-                "name": "Vihang"
+                "name": "Vihang",
+                "email": "vihang@cs.rit.edu",
+                "age": 18,
+                "enrollment_date": "2020-01-05",
+                "active": true
+            },
+            {
+                "name": "Nikhil",
+                "email": "nikhil@cs.rit.edu",
+                "age": 18,
+                "enrollment_date": "2020-01-10",
+                "active": false
             }
         ]
     },
@@ -14,7 +29,11 @@
         "name": "Computer Science",
         "students": [
             {
-                "name": "Janai"
+                "name": "Janai",
+                "email": "janai@cs.rit.edu",
+                "age": 18,
+                "enrollment_date": "2020-02-07",
+                "active": true
             }
         ]
     },
@@ -22,7 +41,11 @@
         "name": "History",
         "students": [
             {
-                "name": "Bahina"
+                "name": "Bahina",
+                "email": "bahina@cs.rit.edu",
+                "age": 20,
+                "enrollment_date": "2021-01-01",
+                "active": true
             }
         ]
     },

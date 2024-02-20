@@ -10,11 +10,13 @@ course_model = api.model('Course', {
 student_model = api.model('Student', {
     'pk': fields.Integer,
     'name': fields.String,
+    'email': fields.String,
+    'age': fields.Integer,
+    'enrollment_date': fields.Date,
+    'active': fields.Boolean,
 })
 
-courses_model = api.model('Courses', {
-    'pk': fields.Integer,
-    'name': fields.String,
+courses_model = course_model.clone('Course', {
     'students': fields.List(fields.Nested(student_model)),
 })
 
@@ -22,9 +24,7 @@ course_input_model = api.model('CourseInput', {
     'name': fields.String,
 })
 
-students_model = api.model('Students', {
-    'pk': fields.Integer,
-    'name': fields.String,
+students_model = student_model.clone('Student', {
     'course': fields.Nested(course_model),
 })
 
