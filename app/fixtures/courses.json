@@ -1,0 +1,33 @@
+[
+    {
+        "name": "Economics",
+        "students": [
+            {
+                "name": "Prateek"
+            },
+            {
+                "name": "Vihang"
+            }
+        ]
+    },
+    {
+        "name": "Computer Science",
+        "students": [
+            {
+                "name": "Janai"
+            }
+        ]
+    },
+    {
+        "name": "History",
+        "students": [
+            {
+                "name": "Bahina"
+            }
+        ]
+    },
+    {
+        "name": "Mathematics",
+        "students": []
+    }
+]
