@@ -3,8 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %} {% endblock %}</title>
+    <title>{% block title %} {% endblock %} - FlaskApp</title>
     <style>
+        body {
+            font-family: Roboto, Merriweather, sans-serif;
+        }
+
         h2 {
             width: 100%;
         }
@@ -41,6 +45,11 @@
             margin-left: 50px;
             text-decoration: none;
         }
+
+        .center {
+            margin: 0 auto;
+            width: 50%;
+        }
     </style>
 </head>
 
@@ -48,7 +57,7 @@
     <nav>
         <a href="{{ url_for('main.index') }}">FlaskApp</a>
         <a href="#">Courses</a>
-        <a href="#">Blog</a>
+        <a href="{{ url_for('blogs.index') }}">Blog</a>
     </nav>
     <hr>
     <div class="content">
