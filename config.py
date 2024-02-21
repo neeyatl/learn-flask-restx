@@ -9,3 +9,4 @@ class Config:
         "DATABASE_URI", "sqlite:///db.sqlite3"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SWAGGER_UI_DOC_EXPANSION = 'list'
