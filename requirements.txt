@@ -39,8 +39,6 @@ markupsafe==2.1.5
     # via
     #   jinja2
     #   werkzeug
-python-dotenv==1.0.1
-    # via -r requirements.in
 pytz==2024.1
     # via flask-restx
 referencing==0.33.0
