@@ -3,7 +3,8 @@ from datetime import datetime
 from app.extensions import db
 from app.main import bp
 from app.utils import get_fixture_json, get_random_item, randint
-from app.models import Post, Comment, Tag, Student, Course
+from app.blogs.models import Post, Comment, Tag
+from app.courses.models import Student, Course
 
 def recreate_db():
     """

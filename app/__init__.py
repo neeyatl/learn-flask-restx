@@ -3,7 +3,7 @@ from flask import Flask
 from config import Config
 
 from .extensions import api, db
-from .resources import ns
+from .courses.resources import ns
 
 
 def create_app():

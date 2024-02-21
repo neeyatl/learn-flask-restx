@@ -1,8 +1,8 @@
 from flask_restx import Resource, Namespace
 
-from .extensions import db
-from .models import Course, Student
-from .api_models import (
+from app.extensions import db
+from app.courses.models import Course, Student
+from app.courses.schema import (
     courses_model, students_model, course_input_model, student_input_model
 )
 
