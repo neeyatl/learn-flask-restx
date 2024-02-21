@@ -21,7 +21,9 @@ def create_app():
 
     # register blueprints
     from app.main import bp as main_bp
+    from app.blogs import bp as blog_bp
 
     app.register_blueprint(main_bp)
+    app.register_blueprint(blog_bp)
 
     return app
